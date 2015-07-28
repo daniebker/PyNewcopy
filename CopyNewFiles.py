@@ -37,13 +37,13 @@ for root, directories, files in os.walk(options.origin):
         if not os.path.exists(os.path.dirname(destinationFilePath)):
             os.makedirs(os.path.dirname(destinationFilePath))
 
-        if os.path.isfile(originFilePath) and not os.path.isfile(destinationFilePath):
-            print "File does not exist. Copying " + file + " to " + destinationFilePath
-            copyfile(originFilePath, destinationFilePath)
-        elif hashfile(originFilePath) != hashfile(destinationFilePath):
-            print "Files differ. Copying " + file + " to " + destinationFilePath
-            copyfile(originFilePath, destinationFilePath)
-        else:
-            print "File " + file + " exists at destination. Doing nothing."
-
+        try:
+                if os.path.isfile(originFilePath) and not os.path.isfile(destinationFilePath):
+                    print "File does not exist. Copying " + file + " to " + destinationFilePath
+                    copyfile(originFilePath, destinationFilePath)
+                elif hashfile(originFilePath) != hashfile(destinationFilePath):
+                    print "Files differ. Copying " + file + " to " + destinationFilePath
+                    copyfile(originFilePath, destinationFilePath)
+        except:
+            continue
 
